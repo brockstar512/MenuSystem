@@ -1,0 +1,58 @@
+[
+	{
+		"file": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/Source/MenuSystem/MenuSystem.Build.cs",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/marshallbrock/Documents/unreal projects/MenuSystem/.vscode/compileCommands_Default/MenuSystem.247.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.1/Engine/Source"
+	},
+	{
+		"file": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/Source/MenuSystem/MenuSystem.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/marshallbrock/Documents/unreal projects/MenuSystem/.vscode/compileCommands_Default/MenuSystem.247.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.1/Engine/Source"
+	},
+	{
+		"file": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/Source/MenuSystem/MenuSystem.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/marshallbrock/Documents/unreal projects/MenuSystem/.vscode/compileCommands_Default/MenuSystem.247.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.1/Engine/Source"
+	},
+	{
+		"file": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/Source/MenuSystem/MenuSystemCharacter.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/marshallbrock/Documents/unreal projects/MenuSystem/.vscode/compileCommands_Default/MenuSystem.247.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.1/Engine/Source"
+	},
+	{
+		"file": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/Source/MenuSystem/MenuSystemCharacter.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/marshallbrock/Documents/unreal projects/MenuSystem/.vscode/compileCommands_Default/MenuSystem.247.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.1/Engine/Source"
+	},
+	{
+		"file": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/Source/MenuSystem/MenuSystemGameMode.cpp",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/marshallbrock/Documents/unreal projects/MenuSystem/.vscode/compileCommands_Default/MenuSystem.247.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.1/Engine/Source"
+	},
+	{
+		"file": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/Source/MenuSystem/MenuSystemGameMode.h",
+		"arguments": [
+			"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+			"@/Users/marshallbrock/Documents/unreal projects/MenuSystem/.vscode/compileCommands_Default/MenuSystem.247.rsp"
+		],
+		"directory": "/Users/Shared/Epic Games/UE_5.1/Engine/Source"
+	}
+]

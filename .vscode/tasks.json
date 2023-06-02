@@ -1,0 +1,720 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "MenuSystem Mac Debug Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"Debug",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac Debug Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"Debug",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"MenuSystem Mac Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac Debug Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"Debug",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac DebugGame Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"DebugGame",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"DebugGame",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"MenuSystem Mac DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac DebugGame Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"DebugGame",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac Development Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"Development",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac Development Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"Development",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"MenuSystem Mac Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac Development Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"Development",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac Test Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"Test",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac Test Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"Test",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"MenuSystem Mac Test Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac Test Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"Test",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac Shipping Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"Shipping",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac Shipping Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"Shipping",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"MenuSystem Mac Shipping Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem Mac Shipping Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"Mac",
+				"Shipping",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS Debug Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"Debug",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS Debug Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"Debug",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"MenuSystem IOS Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS Debug Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"Debug",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS DebugGame Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"DebugGame",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"DebugGame",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"MenuSystem IOS DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS DebugGame Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"DebugGame",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS Development Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"Development",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS Development Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"Development",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"MenuSystem IOS Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS Development Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"Development",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS Test Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"Test",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS Test Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"Test",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"MenuSystem IOS Test Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS Test Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"Test",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS Shipping Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"Shipping",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS Shipping Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"Shipping",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"MenuSystem IOS Shipping Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystem IOS Shipping Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystem",
+				"IOS",
+				"Shipping",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystemEditor Mac Debug Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystemEditor",
+				"Mac",
+				"Debug",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystemEditor Mac Debug Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystemEditor",
+				"Mac",
+				"Debug",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"MenuSystemEditor Mac Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystemEditor Mac Debug Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystemEditor",
+				"Mac",
+				"Debug",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystemEditor Mac DebugGame Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystemEditor",
+				"Mac",
+				"DebugGame",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystemEditor Mac DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystemEditor",
+				"Mac",
+				"DebugGame",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"MenuSystemEditor Mac DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystemEditor Mac DebugGame Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystemEditor",
+				"Mac",
+				"DebugGame",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystemEditor Mac Development Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystemEditor",
+				"Mac",
+				"Development",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystemEditor Mac Development Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystemEditor",
+				"Mac",
+				"Development",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"MenuSystemEditor Mac Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		},
+		{
+			"label": "MenuSystemEditor Mac Development Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Mac/Build.sh",
+			"args": [
+				"MenuSystemEditor",
+				"Mac",
+				"Development",
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/Users/Shared/Epic Games/UE_5.1"
+			}
+		}
+	]
+}

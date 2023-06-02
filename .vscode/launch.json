@@ -1,0 +1,105 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Launch MenuSystem (Debug)",
+			"request": "launch",
+			"program": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/Binaries/Mac/UnrealGame-Mac-Debug.app/Contents/MacOS/UnrealGame-Mac-Debug",
+			"preLaunchTask": "MenuSystem Mac Debug Build",
+			"args": [
+			],
+			"cwd": "/Users/Shared/Epic Games/UE_5.1",
+			"type": "lldb"
+		},
+		{
+			"name": "Launch MenuSystem (DebugGame)",
+			"request": "launch",
+			"program": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/Binaries/Mac/UnrealGame-Mac-DebugGame.app/Contents/MacOS/UnrealGame-Mac-DebugGame",
+			"preLaunchTask": "MenuSystem Mac DebugGame Build",
+			"args": [
+			],
+			"cwd": "/Users/Shared/Epic Games/UE_5.1",
+			"type": "lldb"
+		},
+		{
+			"name": "Launch MenuSystem (Development)",
+			"request": "launch",
+			"program": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/Binaries/Mac/UnrealGame.app/Contents/MacOS/UnrealGame",
+			"preLaunchTask": "MenuSystem Mac Development Build",
+			"args": [
+			],
+			"cwd": "/Users/Shared/Epic Games/UE_5.1",
+			"type": "lldb"
+		},
+		{
+			"name": "Launch MenuSystem (Test)",
+			"request": "launch",
+			"program": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/Binaries/Mac/UnrealGame-Mac-Test.app/Contents/MacOS/UnrealGame-Mac-Test",
+			"preLaunchTask": "MenuSystem Mac Test Build",
+			"args": [
+			],
+			"cwd": "/Users/Shared/Epic Games/UE_5.1",
+			"type": "lldb"
+		},
+		{
+			"name": "Launch MenuSystem (Shipping)",
+			"request": "launch",
+			"program": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/Binaries/Mac/UnrealGame-Mac-Shipping.app/Contents/MacOS/UnrealGame-Mac-Shipping",
+			"preLaunchTask": "MenuSystem Mac Shipping Build",
+			"args": [
+			],
+			"cwd": "/Users/Shared/Epic Games/UE_5.1",
+			"type": "lldb"
+		},
+		{
+			"name": "Launch MenuSystemEditor (Debug)",
+			"request": "launch",
+			"program": "/Users/Shared/Epic Games/UE_5.1/Engine/Binaries/Mac/UnrealEditor-Mac-Debug.app/Contents/MacOS/UnrealEditor-Mac-Debug",
+			"preLaunchTask": "MenuSystemEditor Mac Debug Build",
+			"args": [
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject"
+			],
+			"cwd": "/Users/Shared/Epic Games/UE_5.1",
+			"type": "lldb"
+		},
+		{
+			"name": "Launch MenuSystemEditor (DebugGame)",
+			"request": "launch",
+			"program": "/Users/Shared/Epic Games/UE_5.1/Engine/Binaries/Mac/UnrealEditor-Mac-DebugGame.app/Contents/MacOS/UnrealEditor-Mac-DebugGame",
+			"preLaunchTask": "MenuSystemEditor Mac DebugGame Build",
+			"args": [
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject"
+			],
+			"cwd": "/Users/Shared/Epic Games/UE_5.1",
+			"type": "lldb"
+		},
+		{
+			"name": "Launch MenuSystemEditor (Development)",
+			"request": "launch",
+			"program": "/Users/Shared/Epic Games/UE_5.1/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor",
+			"preLaunchTask": "MenuSystemEditor Mac Development Build",
+			"args": [
+				"/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject"
+			],
+			"cwd": "/Users/Shared/Epic Games/UE_5.1",
+			"type": "lldb"
+		},
+		{
+			"name": "Generate Project Files",
+			"type": "coreclr",
+			"request": "launch",
+			"program": "/Users/Shared/Epic Games/UE_5.1/Engine/Build/BatchFiles/RunUBT.bat",
+			"args": [
+				"-projectfiles",
+				"-vscode",
+				"-project=/Users/marshallbrock/Documents/unreal projects/MenuSystem/MenuSystem.uproject",
+				"-game",
+				"-engine"
+			],
+			"console": "internalConsole",
+			"internalConsoleOptions": "openOnSessionStart",
+			"stopAtEntry": false,
+			"cwd": "/Users/Shared/Epic Games/UE_5.1"
+		}
+	]
+}

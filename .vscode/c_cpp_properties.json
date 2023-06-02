@@ -1,0 +1,35 @@
+{
+    "configurations": [
+        {
+            "name": "MenuSystemEditor Editor Mac Development (MenuSystem)",
+            "compilerPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+            "compilerArgs": [
+                "-isysroot",
+                "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk"
+            ],
+            "macFrameworkPath": [
+                "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/System/Library/Frameworks"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64",
+            "compileCommands": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/.vscode/compileCommands_MenuSystem.json"
+        },
+        {
+            "name": "Mac",
+            "compilerPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++",
+            "compilerArgs": [
+                "-isysroot",
+                "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk"
+            ],
+            "macFrameworkPath": [
+                "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/System/Library/Frameworks"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64",
+            "compileCommands": "/Users/marshallbrock/Documents/unreal projects/MenuSystem/.vscode/compileCommands_Default.json"
+        }
+    ],
+    "version": 4
+}

@@ -9,12 +9,15 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-
+#include "OnlineSubsystem.h"
+#include "Interfaces/OnlineSessionInterface.h"
+#include "OnlineSessionSettings.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AMenuSystemCharacter
 
-AMenuSystemCharacter::AMenuSystemCharacter()
+AMenuSystemCharacter::AMenuSystemCharacter():		//creating the delegate (passing in this object where we are using it, and the address of the callback we are binfing it to.. we could also use the shorthand &ThisClass)
+CreateSessionCompleteDelegate(FOnCreateSessionCompleteDelegate::CreateUObject(this, &AMenuSystemCharacter::OnCreateSessionComplete))
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -49,6 +52,21 @@ AMenuSystemCharacter::AMenuSystemCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+	IOnlineSubsystem* OnlineSubsystem = IOnlineSubsystem::Get();
+
+	if(OnlineSubsystem)
+	{
+		OnlineSessionInterface = OnlineSubsystem->GetSessionInterface();
+		if(GEngine){
+			GEngine->AddOnScreenDebugMessage(
+				-1,
+				15.f,
+				FColor::Blue,
+				FString::Printf(TEXT("Found subsystem %s"), *OnlineSubsystem->GetSubsystemName().ToString())
+			);
+		}
+	}
+
 }
 
 void AMenuSystemCharacter::BeginPlay()
@@ -123,6 +141,68 @@ void AMenuSystemCharacter::Look(const FInputActionValue& Value)
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
 }
+
+void AMenuSystemCharacter::CreateGameSession()
+{
+		//called when pressing the 1 key
+
+		if(!OnlineSessionInterface.IsValid())
+		{
+			return;
+		}
+		
+		auto ExistingSession = OnlineSessionInterface->GetNamedSession(NAME_GameSession);
+
+		if(ExistingSession != nullptr)
+		{
+			//after we create a session we have our delgate added to the delagte list and wll be invoked
+			OnlineSessionInterface -> AddOnCreateSessionCompleteDelegate_Handle(CreateSessionCompleteDelegate);
+			
+			TSharedPtr<FOnlineSessionSettings> SessionSettings = MakeShareable(new FOnlineSessionSettings());
+			
+			SessionSettings->bIsLANMatch = false;
+			SessionSettings->NumPublicConnections = 4;
+			SessionSettings->bAllowJoinInProgress = true;
+			SessionSettings->bAllowJoinViaPresence = true;
+			SessionSettings->bShouldAdvertise = true;
+			SessionSettings->bUsesPresence = true;
+			
+			const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+			OnlineSessionInterface->CreateSession(*LocalPlayer->GetPreferredUniqueNetId(),NAME_GameSession, *SessionSettings);
+		
+		}
+}
+
+void AMenuSystemCharacter::OnCreateSessionComplete(FName SessionName, bool bWasSuccessful)
+{
+			if(bWasSuccessful)
+			{
+				if(GEngine)
+				{
+					GEngine->AddOnScreenDebugMessage(
+					-1,
+					15.f,
+					FColor::Blue,
+					FString::Printf(TEXT("Created Session! %s"), *SessionName.ToString())
+					);
+				}
+
+			}
+			else
+			{
+				if(GEngine)
+				{
+					GEngine->AddOnScreenDebugMessage(
+					-1,
+					15.f,
+					FColor::Red,
+					FString::Printf(TEXT("Failed to create Session!"))
+					);
+				}
+
+			}
+}
+
 
 
 

@@ -18,7 +18,8 @@
 
 AMenuSystemCharacter::AMenuSystemCharacter():		//creating the delegate (passing in this object where we are using it, and the address of the callback we are binfing it to.. we could also use the shorthand &ThisClass)
 CreateSessionCompleteDelegate(FOnCreateSessionCompleteDelegate::CreateUObject(this, &AMenuSystemCharacter::OnCreateSessionComplete)),
-FindSessionsCompleteDelegate(FOnFindSessionsCompleteDelegate::CreateUObject(this, &ThisClass::OnFindSessionsComplete))
+FindSessionsCompleteDelegate(FOnFindSessionsCompleteDelegate::CreateUObject(this, &ThisClass::OnFindSessionsComplete)),
+JoinSessionCompleteDelegate(FOnJoinSessionCompleteDelegate::CreateUObject(this, &ThisClass::OnJoinSessionComplete))//we are passing in the delgate we want to create and the function we want to bind to it
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -188,6 +189,13 @@ void AMenuSystemCharacter::OnCreateSessionComplete(FName SessionName, bool bWasS
 					);
 				}
 
+				UWorld* World = GetWorld();
+				if(World)
+				{
+					//open this level as a listen server
+					World->ServerTravel(FString("/Game/ThirdPerson/Maps/Lobby?listen"));
+				}
+
 			}
 			else
 			{
@@ -218,25 +226,28 @@ void AMenuSystemCharacter::JoinGameSession()
 	//make sure the session we are querrying uses presence...
 	//because we are using presence we have to specify that
 	SessionSearch->QuerySettings.Set(SEARCH_PRESENCE, true, EOnlineComparisonOp::Equals);
-			
+	SessionSearch->Set(FName("MatchType"),FString("FreeForAll"),EOnlineDataAdvertisementType::ViaOnlineServiceAndPing)		
 	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
 
 	OnlineSessionInterface->FindSessions(*LocalPlayer->GetPreferredUniqueNetId(),SessionSearch.ToSharedRef());
 
-
-
-
-
 }
+
 void AMenuSystemCharacter::OnFindSessionsComplete(bool bWasSuccessful)
 {
 	
+	if(!OnlineSessionInterface.IsValid())
+	{
+		return;
+	}
 
 	for(auto Result : SessionSearch->SearchResults)
 	{
 		FString Id = Result.GetSessionIdStr();
 		FString User = Result.Session.OwningUserName;
-
+		FString MatchType;
+		//getting the value of the key matchtype that was passed in
+		Result.SessionSettings.Get(FName("MatchType"), MatchType)
 		if(GEngine){
 			GEngine->AddOnScreenDebugMessage(
 				-1,
@@ -245,10 +256,55 @@ void AMenuSystemCharacter::OnFindSessionsComplete(bool bWasSuccessful)
 				FString::Printf(TEXT("Id %s, User: %s"), *Id,*User)
 			);
 		}
+		//we found the match with the correct match type
+		if(MatchType == FString("FreeForAll")){
+			if(GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(
+				-1,
+				15.f,
+				FColor::Cyan,
+				FString::Printf(TEXT("Joining match type %s"), *MatchType));
+			}
+
+			OnlineSessionInterface->AddOnJoinSessionCompleteDelegate_Handle(JoinSessionCompleteDelegate);
+			const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+			OnlineSessionInterface->JoinSession(*LocalPlayer->GetPreferredUniqueNetId(),NAME_GameSession,Result);
+
+		}
+
 	}
 
 }
 
+void AMenuSystemCharacter::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
+{
+	if(!OnlineSessionInterface.IsValid())
+	{
+		return;
+	}
+	FString Address;
+
+	if(OnlineSessionInterface->GetResolvedConnectString(NAME_GameSession,Address))
+	{
+				if(GEngine){
+			GEngine->AddOnScreenDebugMessage(
+				-1,
+				15.f,
+				FColor::Yellow,
+				FString::Printf(TEXT("Coonect string %s"), *Address)
+			);
+		}
+		//i believe this is the listen Server player controller
+		APlayerController* PlayerController = GetGameInstance()->GetFirstLocalPlayerController();
+		if(PlayerController)
+		{
+			//we are getting the address we need to trael to 
+			PlayerController->ClientTravel(Address,ETravelType::TRAVEL_Absolute)
+		}
+	}
+
+}
 
 
 

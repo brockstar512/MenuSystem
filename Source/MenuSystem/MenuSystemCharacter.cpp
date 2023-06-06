@@ -168,7 +168,8 @@ void AMenuSystemCharacter::CreateGameSession()
 			SessionSettings->bAllowJoinViaPresence = true;
 			SessionSettings->bShouldAdvertise = true;
 			SessionSettings->bUsesPresence = true;
-			SessionSettings->bUseLobbiesIfAvailable = true;
+			// SessionSettings->bUseLobbiesIfAvailable = true;
+			SessionSettings->Set(FName("MatchType"),FString("FreeForAll"),EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);		
 			const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
 			OnlineSessionInterface->CreateSession(*LocalPlayer->GetPreferredUniqueNetId(),NAME_GameSession, *SessionSettings);
 		
@@ -223,10 +224,11 @@ void AMenuSystemCharacter::JoinGameSession()
 	SessionSearch = MakeShareable(new FOnlineSessionSearch());
 	SessionSearch->MaxSearchResults = 10000;
 	SessionSearch->bIsLanQuery = false;
+	
 	//make sure the session we are querrying uses presence...
 	//because we are using presence we have to specify that
 	SessionSearch->QuerySettings.Set(SEARCH_PRESENCE, true, EOnlineComparisonOp::Equals);
-	SessionSearch->Set(FName("MatchType"),FString("FreeForAll"),EOnlineDataAdvertisementType::ViaOnlineServiceAndPing)		
+
 	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
 
 	OnlineSessionInterface->FindSessions(*LocalPlayer->GetPreferredUniqueNetId(),SessionSearch.ToSharedRef());
@@ -247,7 +249,7 @@ void AMenuSystemCharacter::OnFindSessionsComplete(bool bWasSuccessful)
 		FString User = Result.Session.OwningUserName;
 		FString MatchType;
 		//getting the value of the key matchtype that was passed in
-		Result.SessionSettings.Get(FName("MatchType"), MatchType)
+		Result.Session.SessionSettings.Get(FName("MatchType"), MatchType);
 		if(GEngine){
 			GEngine->AddOnScreenDebugMessage(
 				-1,
@@ -292,15 +294,17 @@ void AMenuSystemCharacter::OnJoinSessionComplete(FName SessionName, EOnJoinSessi
 				-1,
 				15.f,
 				FColor::Yellow,
-				FString::Printf(TEXT("Coonect string %s"), *Address)
+				FString::Printf(TEXT("Connect string %s"), *Address)
 			);
 		}
 		//i believe this is the listen Server player controller
 		APlayerController* PlayerController = GetGameInstance()->GetFirstLocalPlayerController();
+					//const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+
 		if(PlayerController)
 		{
 			//we are getting the address we need to trael to 
-			PlayerController->ClientTravel(Address,ETravelType::TRAVEL_Absolute)
+			PlayerController->ClientTravel(Address,ETravelType::TRAVEL_Absolute);
 		}
 	}
 

@@ -10,9 +10,6 @@ FindSessionsCompleteDelegate(FOnFindSessionsCompleteDelegate::CreateUObject(this
 JoinSessionCompleteDelegate(FOnJoinSessionCompleteDelegate::CreateUObject(this, &ThisClass::OnJoinSessionComplete)),
 DestroySessionCompleteDelegate(FOnDestroySessionCompleteDelegate::CreateUObject(this, &ThisClass::OnDestroySessionComplete)),
 StartSessionCompleteDelegate(FOnStartSessionCompleteDelegate::CreateUObject(this, &ThisClass::OnStartSessionComplete))
-
-
-
 {
     IOnlineSubsystem* Subsystem = IOnlineSubsystem::Get();
 
@@ -62,7 +59,7 @@ void UMultiplayerSessionsSubsystem::CreateSession(int32 NumPublicConnections, FS
 
         LastSessionSettings = MakeShareable(new FOnlineSessionSettings());
         //checking if ths is the null subsystem
-        LastSessionSettings->bIsLANMatch = IOnlineSubsystem::Get()->GetSubsystemName()=="NULL" ? true:false;
+        LastSessionSettings->bIsLANMatch = IOnlineSubsystem::Get()->GetSubsystemName()=="NULL" ? true : false;
 
         LastSessionSettings->NumPublicConnections = NumPublicConnections;
         LastSessionSettings->bAllowJoinInProgress = true;
@@ -78,9 +75,6 @@ void UMultiplayerSessionsSubsystem::CreateSession(int32 NumPublicConnections, FS
         //remove the delegate from the list if the session creation failed
         SessionInterface->ClearOnCreateSessionCompleteDelegate_Handle(CreateSessionCompleteDelegateHandle);
     }
-
-
-    
 }
 void UMultiplayerSessionsSubsystem::FindSessions(int32 MaxSearchResults)
 {

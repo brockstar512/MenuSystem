@@ -40,7 +40,7 @@ class MULTIPLAYERSESSIONS_API UMultiplayerSessionsSubsystem : public UGameInstan
 
 	private:
 		IOnlineSessionPtr SessionInterface;
-
+		TSharedPtr<FOnlineSessionSettings> LastSessionSettings;
 		//To add to the online session interface delegate list
 		//we'll bind our  Multiplayer subsystem internal callbacks to these.
 

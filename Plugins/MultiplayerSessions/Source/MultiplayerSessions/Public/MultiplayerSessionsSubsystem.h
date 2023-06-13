@@ -9,6 +9,14 @@
 /**
  * 
  */
+
+//
+//Declarring our own custmi delegates for the menu class to bind callbacks to
+//
+//type of delegate								name of delegate      -     input type - name for input paramter
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMultiplayerOnCreateSessionComplete, bool,bWasSuccessful);
+// the delegate can be serialized and used in a blueprint/this meancs multiple functions can bind to it./number of params 
+
 UCLASS()
 class MULTIPLAYERSESSIONS_API UMultiplayerSessionsSubsystem : public UGameInstanceSubsystem
 {
@@ -24,6 +32,12 @@ class MULTIPLAYERSESSIONS_API UMultiplayerSessionsSubsystem : public UGameInstan
 		void JoinSession(const FOnlineSessionSearchResult& SessionResult);
 		void DestroySession();
 		void StartSession();
+
+		//
+		//Our own custom delegates for the menu class to bind callbacks to
+		//
+		FMultiplayerOnCreateSessionComplete MultiplayerOnCreateSessionComplete;
+
 
 	protected:
 		//internal callbacks for the delegates we'll add to the online session interface delegate list

@@ -18,9 +18,16 @@ StartSessionCompleteDelegate(FOnStartSessionCompleteDelegate::CreateUObject(this
         SessionInterface = Subsystem->GetSessionInterface();
     }
 }
+
 void UMultiplayerSessionsSubsystem::OnCreateSessionComplete(FName SessionName, bool bWasSuccessful)
 {
-
+    if(SessionInterface)
+    {
+        //remove the delagate that was binded to this function in the first place... then make the broadcast
+        SessionInterface->ClearOnCreateSessionCompleteDelegate_Handle(CreateSessionCompleteDelegateHandle);
+    }
+    
+    MultiplayerOnCreateSessionComplete.Broadcast(bWasSuccessful);
 }
 
 void UMultiplayerSessionsSubsystem::OnFindSessionsComplete(bool bWasSuccessful)
@@ -70,24 +77,32 @@ void UMultiplayerSessionsSubsystem::CreateSession(int32 NumPublicConnections, FS
 
         const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
 
+        //we are checking if the create session failed
     if(!SessionInterface->CreateSession(*LocalPlayer->GetPreferredUniqueNetId(),NAME_GameSession,*LastSessionSettings))
     {
         //remove the delegate from the list if the session creation failed
         SessionInterface->ClearOnCreateSessionCompleteDelegate_Handle(CreateSessionCompleteDelegateHandle);
+
+        //broadcast our own custom delagte
+        MultiplayerOnCreateSessionComplete.Broadcast(false);
     }
 }
+
 void UMultiplayerSessionsSubsystem::FindSessions(int32 MaxSearchResults)
 {
 
 }
+
 void UMultiplayerSessionsSubsystem::JoinSession(const FOnlineSessionSearchResult& SessionResult)
 {
 
 }
+
 void UMultiplayerSessionsSubsystem::DestroySession()
 {
 
 }
+
 void UMultiplayerSessionsSubsystem::StartSession()
 {
 

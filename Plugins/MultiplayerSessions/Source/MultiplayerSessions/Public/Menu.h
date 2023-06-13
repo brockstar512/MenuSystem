@@ -21,6 +21,11 @@ class MULTIPLAYERSESSIONS_API UMenu : public UUserWidget
 		virtual bool Initialize() override;
 		virtual void NativeDestruct() override;
 
+		//
+		//Callbacks for the custom delagtes on the MultiplayerSessionsSubsystem
+		//
+		void OnCreateSession(bool bWasSuccessful);//this is the type of delegate that can be bind to the delegate
+
 	private:
 		UPROPERTY(meta = (BindWidget))
 		class UButton* HostButton;//name of the variable must have the same name as the widget in blueprints

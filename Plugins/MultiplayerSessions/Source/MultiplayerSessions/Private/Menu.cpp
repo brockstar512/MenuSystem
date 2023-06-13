@@ -4,6 +4,8 @@
 #include "Menu.h"
 #include "Components/Button.h"
 #include "MultiplayerSessionsSubsystem.h"
+#include "OnlineSubsystem.h"
+#include "OnlineSessionSettings.h"
 
 void UMenu::MenuSetup(int32 NumberOfPublicConnections,FString TypeOfMatch)
 {
@@ -32,14 +34,23 @@ void UMenu::MenuSetup(int32 NumberOfPublicConnections,FString TypeOfMatch)
     UGameInstance* GameInstance = GetGameInstance();
     if(GameInstance)
     {
+        //get the session subsystem class
        MultiplayerSessionsSubsystem = GameInstance->GetSubsystem<UMultiplayerSessionsSubsystem>();
     }
 
     if(MultiplayerSessionsSubsystem)
     {
-                //binding the delgate here
+        //binding the delgate here
         MultiplayerSessionsSubsystem->MultiplayerOnCreateSessionComplete.AddDynamic(this,&ThisClass::OnCreateSession);
+        MultiplayerSessionsSubsystem->MultiplayerOnFindSessionsComplete.AddUObject(this,&ThisClass::OnFindSessions);
+        MultiplayerSessionsSubsystem->MultiplayerOnJoinSessionComplete.AddUObject(this,&ThisClass::OnJoinSession);
+        MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.AddDynamic(this,&ThisClass::OnDestroySession);
+        MultiplayerSessionsSubsystem->MultiplayerOnStartSessionComplete.AddDynamic(this,&ThisClass::OnStartSession);
+
+
     }
+
+    
    
 }
 
@@ -68,28 +79,15 @@ void UMenu::HostButtonClicked()
      if(MultiplayerSessionsSubsystem)
     {
         MultiplayerSessionsSubsystem->CreateSession(NumPublicConnections,MatchType);
-        UWorld* World = GetWorld();
-        if(World)
-        {
-            //if we are creating the session and are traveling then we are the listen server
-            //we are going to add the listen option so we can wait for others
-            //World->ServerTravel("/Game/ThirdPersonCPP/Maps/Lobby?listen");
-            World->ServerTravel(FString("/Game/ThirdPerson/Maps/Lobby?listen"));
-
-        }
 
     }
 }
 
 void UMenu::JoinButtonClicked()
 {
-        if(GEngine){
-        GEngine->AddOnScreenDebugMessage(
-            -1,
-            15.f,
-            FColor::Yellow,
-            FString(TEXT("Join Button Clicked"))
-        );
+    if(MultiplayerSessionsSubsystem)
+    {
+        MultiplayerSessionsSubsystem->FindSessions(10000);
     }
 
 }
@@ -123,14 +121,93 @@ void UMenu::MenuTearDown()
 void UMenu::OnCreateSession(bool bWasSuccessful)
 {
     if(bWasSuccessful)
-    if(GEngine){
-        GEngine->AddOnScreenDebugMessage(
-            -1,
-            15.f,
-            FColor::Yellow,
-            FString(TEXT("Session Created Successfuly"))
-        );
+    {
+        if(GEngine){
+            GEngine->AddOnScreenDebugMessage(
+                -1,
+                15.f,
+                FColor::Yellow,
+                FString(TEXT("Session Created Successfuly"))
+            );
+        }
+
+        UWorld* World = GetWorld();
+        if(World)
+        {
+            //if we are creating the session and are traveling then we are the listen server
+            //we are going to add the listen option so we can wait for others
+            //World->ServerTravel("/Game/ThirdPersonCPP/Maps/Lobby?listen");
+            World->ServerTravel(FString("/Game/ThirdPerson/Maps/Lobby?listen"));
+
+        }
+    }
+    else
+    {
+        if(GEngine){
+            GEngine->AddOnScreenDebugMessage(
+                -1,
+                15.f,
+                FColor::Red,
+                FString(TEXT("Session Creation Failed"))
+            );
+        }
+    }
+
+
+}
+
+void UMenu::OnFindSessions(const TArray<FOnlineSessionSearchResult>& SessionResults,bool bWasSuccessful)
+{
+    if(MultiplayerSessionsSubsystem == nullptr)
+    {
+        return;
+    }
+
+    for(auto Result : SessionResults)
+    {
+        FString SettingsValue;
+		//getting the value of the key matchtype that was passed in
+		Result.Session.SessionSettings.Get(FName("MatchType"), SettingsValue);
+        if(SettingsValue == MatchType)
+        {
+            MultiplayerSessionsSubsystem->JoinSession(Result);
+            return;
+        }
+    }
+}
+
+void UMenu::OnJoinSession(EOnJoinSessionCompleteResult::Type Result)
+{
+    //get the correct address and travel to that player
+    IOnlineSubsystem* Subsystem = IOnlineSubsystem::Get();
+
+    if(Subsystem)
+    {
+        IOnlineSessionPtr SessionInterface = Subsystem->GetSessionInterface();
+        
+        if(SessionInterface.IsValid())
+        {
+            FString Address;
+            SessionInterface->GetResolvedConnectString(NAME_GameSession,Address);
+
+		    APlayerController* PlayerController = GetGameInstance()->GetFirstLocalPlayerController();
+
+		    if(PlayerController)
+		    {
+			    //we are getting the address we need to trael to 
+			    PlayerController->ClientTravel(Address,ETravelType::TRAVEL_Absolute);
+		    }
+        }
     }
 
 }
 
+void UMenu::OnDestroySession(bool bWasSuccessful)
+{
+
+}
+
+void UMenu::OnStartSession(bool bWasSuccessful)
+{
+
+}

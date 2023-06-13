@@ -32,12 +32,29 @@ void UMultiplayerSessionsSubsystem::OnCreateSessionComplete(FName SessionName, b
 
 void UMultiplayerSessionsSubsystem::OnFindSessionsComplete(bool bWasSuccessful)
 {
+    //clear delegate from the list
+    if(SessionInterface)
+    {
+        SessionInterface->ClearOnFindSessionsCompleteDelegate_Handle(FindSessionsCompleteDelegateHandle);
+    }
+    if(LastSessionSearch->SearchResults.Num()<=0)
+    {
+        MultiplayerOnFindSessionsComplete.Broadcast(TArray<FOnlineSessionSearchResult>(),false);
+        return;
+    }
 
+    //broadcast to the menu
+    MultiplayerOnFindSessionsComplete.Broadcast(LastSessionSearch->SearchResults,bWasSuccessful);
 }
 
 void UMultiplayerSessionsSubsystem::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
 {
+    if(SessionInterface)
+    {
+        SessionInterface->ClearOnJoinSessionCompleteDelegate_Handle(JoinSessionCompleteDelegateHandle);
+    }
 
+    MultiplayerOnJoinSessionComplete.Broadcast(Result);
 }
 
 void UMultiplayerSessionsSubsystem::OnDestroySessionComplete(FName SessionName, bool bWasSuccessful)
@@ -73,6 +90,7 @@ void UMultiplayerSessionsSubsystem::CreateSession(int32 NumPublicConnections, FS
         LastSessionSettings->bAllowJoinViaPresence = true;
         LastSessionSettings->bShouldAdvertise = true;
         LastSessionSettings->bUsesPresence = true;
+        LastSessionSettings->bUseLobbiesIfAvailable = true;
         LastSessionSettings->Set(FName("MatchType"),MatchType,EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);		
 
         const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
@@ -90,12 +108,55 @@ void UMultiplayerSessionsSubsystem::CreateSession(int32 NumPublicConnections, FS
 
 void UMultiplayerSessionsSubsystem::FindSessions(int32 MaxSearchResults)
 {
+    if(!SessionInterface.IsValid())
+    {
+        return;
+    }
 
+    FindSessionsCompleteDelegateHandle = SessionInterface->AddOnFindSessionsCompleteDelegate_Handle(FindSessionsCompleteDelegate);
+
+    //MakeShareable utility function. Wrap object pointers with MakeShareable to allow them 
+    //to be implicitly converted to shared pointers! This is useful in assignment operations, 
+    //or when returning a shared pointer from a function.
+    LastSessionSearch = MakeShareable(new FOnlineSessionSearch());//constrcuting a FOnlineSessionSearch shared pointer
+    //implicit means some details are not stated but can be determined without 
+    //being stated because enough information is available
+
+    LastSessionSearch->MaxSearchResults = MaxSearchResults;
+    LastSessionSearch->bIsLanQuery = IOnlineSubsystem::Get()->GetSubsystemName()=="NULL" ? true : false;
+	
+	//make sure the session we are querrying uses presence...
+	//because we are using presence we have to specify that
+	LastSessionSearch->QuerySettings.Set(SEARCH_PRESENCE, true, EOnlineComparisonOp::Equals);
+    
+    const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+    //if this returns false... clear delegate and broadcast custom delegate t0 menu
+	if(!SessionInterface->FindSessions(*LocalPlayer->GetPreferredUniqueNetId(),LastSessionSearch.ToSharedRef()))
+    {
+        SessionInterface->ClearOnFindSessionsCompleteDelegate_Handle(FindSessionsCompleteDelegateHandle);
+
+        MultiplayerOnFindSessionsComplete.Broadcast(TArray<FOnlineSessionSearchResult>(),false);
+    }
+    //if find sessions is successful the delegate will already call find sessions complete
 }
 
 void UMultiplayerSessionsSubsystem::JoinSession(const FOnlineSessionSearchResult& SessionResult)
 {
+    if(!SessionInterface.IsValid())
+    {
+        MultiplayerOnJoinSessionComplete.Broadcast(EOnJoinSessionCompleteResult::UnknownError);
+        return;
+    }
+    JoinSessionCompleteDelegateHandle = SessionInterface->AddOnJoinSessionCompleteDelegate_Handle(JoinSessionCompleteDelegate);
 
+    const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+
+    if(!SessionInterface->JoinSession(*LocalPlayer->GetPreferredUniqueNetId(),NAME_GameSession,SessionResult))
+    {
+        SessionInterface->ClearOnJoinSessionCompleteDelegate_Handle(JoinSessionCompleteDelegateHandle);
+
+        MultiplayerOnJoinSessionComplete.Broadcast(EOnJoinSessionCompleteResult::UnknownError);
+    }
 }
 
 void UMultiplayerSessionsSubsystem::DestroySession()

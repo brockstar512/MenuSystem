@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Interfaces/OnlineSessionInterface.h"
 #include "Menu.generated.h"
 
 /**
@@ -17,14 +18,21 @@ class MULTIPLAYERSESSIONS_API UMenu : public UUserWidget
 		UFUNCTION(BlueprintCallable)
 		void MenuSetup(int32 NumberOfPublicConnections = 4,FString TypeOfMatch = FString(TEXT("FreeForAll")));
 
-		protected:
+	protected:
 		virtual bool Initialize() override;
 		virtual void NativeDestruct() override;
 
 		//
 		//Callbacks for the custom delagtes on the MultiplayerSessionsSubsystem
 		//
+		UFUNCTION()
 		void OnCreateSession(bool bWasSuccessful);//this is the type of delegate that can be bind to the delegate
+		void OnFindSessions(const TArray<FOnlineSessionSearchResult>& SessionResults,bool bWasSuccessful);
+		void OnJoinSession(EOnJoinSessionCompleteResult::Type Result);
+		UFUNCTION()
+		void OnDestroySession(bool bWasSuccessful);
+		UFUNCTION()
+		void OnStartSession(bool bWasSuccessful);
 
 	private:
 		UPROPERTY(meta = (BindWidget))

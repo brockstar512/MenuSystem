@@ -16,6 +16,17 @@
 //type of delegate								name of delegate      -     input type - name for input paramter
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMultiplayerOnCreateSessionComplete, bool,bWasSuccessful);
 // the delegate can be serialized and used in a blueprint/this meancs multiple functions can bind to it./number of params 
+//because its dynamic multicast delgate any functions we bind to it, it needs to be a ufunction
+
+//this will not be a dynamic delagate because blue prints dont support non Uclass or UStructs which onlisne session seach result is not
+DECLARE_MULTICAST_DELEGATE_TwoParams(FMultiplayerOnFindSessionsComplete, const TArray<FOnlineSessionSearchResult>& SessionResults,bool bWasSuccessful);
+																		//passing in a reference so we dont have to copy array
+
+DECLARE_MULTICAST_DELEGATE_OneParam(FMultiplayerOnJoinSessionComplete, EOnJoinSessionCompleteResult::Type Result);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMultiplayerOnDestroySessionComplete, bool,bWasSuccessful);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMultiplayerOnStartSessionComplete, bool,bWasSuccessful);
+
 
 UCLASS()
 class MULTIPLAYERSESSIONS_API UMultiplayerSessionsSubsystem : public UGameInstanceSubsystem
@@ -37,7 +48,10 @@ class MULTIPLAYERSESSIONS_API UMultiplayerSessionsSubsystem : public UGameInstan
 		//Our own custom delegates for the menu class to bind callbacks to
 		//
 		FMultiplayerOnCreateSessionComplete MultiplayerOnCreateSessionComplete;
-
+		FMultiplayerOnFindSessionsComplete MultiplayerOnFindSessionsComplete;
+		FMultiplayerOnJoinSessionComplete MultiplayerOnJoinSessionComplete;
+		FMultiplayerOnDestroySessionComplete MultiplayerOnDestroySessionComplete;
+		FMultiplayerOnStartSessionComplete MultiplayerOnStartSessionComplete;
 
 	protected:
 		//internal callbacks for the delegates we'll add to the online session interface delegate list
@@ -55,13 +69,15 @@ class MULTIPLAYERSESSIONS_API UMultiplayerSessionsSubsystem : public UGameInstan
 	private:
 		IOnlineSessionPtr SessionInterface;
 		TSharedPtr<FOnlineSessionSettings> LastSessionSettings;
+		TSharedPtr<FOnlineSessionSearch> LastSessionSearch;
+
 		//To add to the online session interface delegate list
 		//we'll bind our  Multiplayer subsystem internal callbacks to these.
 
 		FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
 		FDelegateHandle CreateSessionCompleteDelegateHandle;
 		FOnFindSessionsCompleteDelegate FindSessionsCompleteDelegate;
-		FDelegateHandle FindSessionCompleteDelegateHandle;
+		FDelegateHandle FindSessionsCompleteDelegateHandle;
 		FOnJoinSessionCompleteDelegate JoinSessionCompleteDelegate;
 		FDelegateHandle JoinSessionCompleteDelegateHandle;
 		FOnDestroySessionCompleteDelegate DestroySessionCompleteDelegate;

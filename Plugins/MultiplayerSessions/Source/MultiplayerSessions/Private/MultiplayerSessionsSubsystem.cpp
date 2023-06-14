@@ -92,8 +92,8 @@ void UMultiplayerSessionsSubsystem::CreateSession(int32 NumPublicConnections, FS
         LastSessionSettings->bUsesPresence = true;
         LastSessionSettings->bUseLobbiesIfAvailable = true;
         LastSessionSettings->Set(FName("MatchType"),MatchType,EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);		
-
         const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+        LastSessionSettings-> BuildUniqueId = 1;//keeps different builds from seeing echother. so we can see others and not just the first one we foudn
 
         //we are checking if the create session failed
     if(!SessionInterface->CreateSession(*LocalPlayer->GetPreferredUniqueNetId(),NAME_GameSession,*LastSessionSettings))

@@ -289,7 +289,7 @@ void AMenuSystemCharacter::OnJoinSessionComplete(FName SessionName, EOnJoinSessi
 
 	if(OnlineSessionInterface->GetResolvedConnectString(NAME_GameSession,Address))
 	{
-				if(GEngine){
+		if(GEngine){
 			GEngine->AddOnScreenDebugMessage(
 				-1,
 				15.f,

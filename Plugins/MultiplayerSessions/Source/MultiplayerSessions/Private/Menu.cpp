@@ -7,8 +7,9 @@
 #include "OnlineSubsystem.h"
 #include "OnlineSessionSettings.h"
 
-void UMenu::MenuSetup(int32 NumberOfPublicConnections,FString TypeOfMatch)
+void UMenu::MenuSetup(int32 NumberOfPublicConnections,FString TypeOfMatch,FString LobbyPath)
 {
+    PathToLobby = FString::Printf(TEXT("%s?listen"),*LobbyPath);
     NumPublicConnections = NumberOfPublicConnections;
     MatchType = TypeOfMatch;
     AddToViewport();
@@ -75,6 +76,8 @@ bool UMenu::Initialize()
 
 void UMenu::HostButtonClicked()
 {
+        HostButton->SetIsEnable(false);
+
    
      if(MultiplayerSessionsSubsystem)
     {
@@ -85,6 +88,8 @@ void UMenu::HostButtonClicked()
 
 void UMenu::JoinButtonClicked()
 {
+    JoinButton->SetIsEnable(false);
+
     if(MultiplayerSessionsSubsystem)
     {
         MultiplayerSessionsSubsystem->FindSessions(10000);
@@ -137,7 +142,7 @@ void UMenu::OnCreateSession(bool bWasSuccessful)
             //if we are creating the session and are traveling then we are the listen server
             //we are going to add the listen option so we can wait for others
             //World->ServerTravel("/Game/ThirdPersonCPP/Maps/Lobby?listen");
-            World->ServerTravel(FString("/Game/ThirdPerson/Maps/Lobby?listen"));
+            World->ServerTravel(PathToLobby);
 
         }
     }
@@ -151,6 +156,8 @@ void UMenu::OnCreateSession(bool bWasSuccessful)
                 FString(TEXT("Session Creation Failed"))
             );
         }
+            HostButton->SetIsEnable(true);
+
     }
 
 
@@ -173,6 +180,11 @@ void UMenu::OnFindSessions(const TArray<FOnlineSessionSearchResult>& SessionResu
             MultiplayerSessionsSubsystem->JoinSession(Result);
             return;
         }
+    }
+    //failed or cant find a session
+    if(!bWasSuccessful || SessionResult.Num( )== 0)
+    {
+        JoinButton->SetIsEnabled(true);
     }
 }
 
@@ -198,6 +210,11 @@ void UMenu::OnJoinSession(EOnJoinSessionCompleteResult::Type Result)
 			    PlayerController->ClientTravel(Address,ETravelType::TRAVEL_Absolute);
 		    }
         }
+    }
+    //if you were not able to join the session
+    if(Result != EOnJoinSessionCompleteResult::Success)
+    {
+            JoinButton->SetIsEnable(true);
     }
 
 }

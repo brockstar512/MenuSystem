@@ -73,7 +73,7 @@ class MULTIPLAYERSESSIONS_API UMultiplayerSessionsSubsystem : public UGameInstan
 
 		//To add to the online session interface delegate list
 		//we'll bind our  Multiplayer subsystem internal callbacks to these.
-
+		//the handles are there so we can remove them from the list later when we do not need them
 		FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
 		FDelegateHandle CreateSessionCompleteDelegateHandle;
 		FOnFindSessionsCompleteDelegate FindSessionsCompleteDelegate;
@@ -84,6 +84,8 @@ class MULTIPLAYERSESSIONS_API UMultiplayerSessionsSubsystem : public UGameInstan
 		FDelegateHandle DestroySessionCompleteDelegateHandle;
 		FOnStartSessionCompleteDelegate StartSessionCompleteDelegate;
 		FDelegateHandle StartSessionCompleteDelegateHandle;
-
-
+		
+		bool bCreateSessionOnDestroy{false};
+		int32 LastNumPublicConnections;
+		FString LastMatchType;
 };

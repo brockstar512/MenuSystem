@@ -76,7 +76,7 @@ bool UMenu::Initialize()
 
 void UMenu::HostButtonClicked()
 {
-        HostButton->SetIsEnable(false);
+        HostButton->SetIsEnabled(false);
 
    
      if(MultiplayerSessionsSubsystem)
@@ -88,7 +88,7 @@ void UMenu::HostButtonClicked()
 
 void UMenu::JoinButtonClicked()
 {
-    JoinButton->SetIsEnable(false);
+    JoinButton->SetIsEnabled(false);
 
     if(MultiplayerSessionsSubsystem)
     {
@@ -156,7 +156,7 @@ void UMenu::OnCreateSession(bool bWasSuccessful)
                 FString(TEXT("Session Creation Failed"))
             );
         }
-            HostButton->SetIsEnable(true);
+            HostButton->SetIsEnabled(true);
 
     }
 
@@ -182,7 +182,7 @@ void UMenu::OnFindSessions(const TArray<FOnlineSessionSearchResult>& SessionResu
         }
     }
     //failed or cant find a session
-    if(!bWasSuccessful || SessionResult.Num( )== 0)
+    if(!bWasSuccessful || SessionResults.Num( )== 0)
     {
         JoinButton->SetIsEnabled(true);
     }
@@ -214,7 +214,7 @@ void UMenu::OnJoinSession(EOnJoinSessionCompleteResult::Type Result)
     //if you were not able to join the session
     if(Result != EOnJoinSessionCompleteResult::Success)
     {
-            JoinButton->SetIsEnable(true);
+            JoinButton->SetIsEnabled(true);
     }
 
 }
